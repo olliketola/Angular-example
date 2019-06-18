@@ -25,7 +25,7 @@ export class Model {
             product.id = this.generateID();
             this.products.push(product);
         } else {
-            let indSex = this.products
+            let index = this.products
                 .findIndex(p => this.locator(p, product.id));
             this.products.splice(index, 1, product);
         }
