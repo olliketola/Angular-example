@@ -14,8 +14,22 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
   }
 
-  getClass(): string {
-    return this.model.getProducts().length === 5 ? "bg-success" : "bg-warning";
+  getClasses(key: number): string {
+    let product = this.model.getProduct(key);
+    return "p-2 " + (product.price < 50 ? "bg-info" : "bg-warning");
   }
+
+  getClassMap(key: number): Object {
+
+    let product = this.model.getProduct(key);
+
+    return {
+      "text-center bg-danger": product.name == "Kayak",
+      "bg-info": product.price < 50
+    };
+  }
+
+  fontSizeWithUnits: string = "30px";
+  fontSizeWithoutUnits: string = "30";
 
 }
