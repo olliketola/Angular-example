@@ -11,53 +11,11 @@ export class ProductComponent implements OnInit {
 
   model: Model = new Model();
 
-  counter: number = 1;
+  newProduct: Product = new Product();
 
-  constructor(ref: ApplicationRef) {
-
-    (<any>window).appRef = ref;
-    (<any>window).model = this.model;
-
-  }
 
   ngOnInit() {
 
-  }
-
-  getClasses(key: number): string {
-    let product = this.model.getProduct(key);
-    return "p-2 " + (product.price < 50 ? "bg-info" : "bg-warning");
-  }
-
-  getClassMap(key: number): Object {
-
-    let product = this.model.getProduct(key);
-
-    return {
-      "text-center bg-danger": product.name == "Kayak",
-      "bg-info": product.price < 50
-    };
-  }
-
-  fontSizeWithUnits: string = "30px";
-  fontSizeWithoutUnits: string = "30";
-
-  getStyles(key: number) {
-    let product = this.model.getProduct(key);
-    return {
-      fontSize: "30px",
-      "margin.px": 100,
-      color: product.price > 50 ? "red" : "green"
-    };
-  }
-
-  getProductByPosition(position: number): Product {
-    return this.model.getProducts()[position];
-  }
-
-  getClassesByPosition(position: number): string {
-    let product = this.getProductByPosition(position);
-    return "p-2 " + (product.price < 50 ? "bg-info" : "bg-warning");
   }
 
   getProduct(key: number): Product {
@@ -67,23 +25,22 @@ export class ProductComponent implements OnInit {
   getProducts(): Product[] {
     return this.model.getProducts();
   }
-  
-  getProductCount(): number {
-    console.log("getProductCount invoked");
-    return this.getProducts().length;
+
+  selectedProduct: string;
+
+  getSelected(product: Product): boolean {
+    console.log(product)
+    return product.name == this.selectedProduct;
   }
 
-  getKey(index: number, product: Product) {
-    return product.id;
+  get jsonProduct(){
+    return JSON.stringify(this.newProduct);
   }
 
-  get nextProduct(): Product {
-    return this.model.getProducts().shift();
+  addProduct(p: Product, e){
+    console.log(e)
+    console.log("New Product" + this.jsonProduct);
   }
 
-  getProductPrice(index: number): number {
-    return Math.floor(this.getProduct(index).price);
-  }
 
-  targetName: string = "Kayak";
 }
